@@ -42,10 +42,11 @@ class FindContours:
                     f[p3[0], p3[1]] = -NBD
                 elif f[p3[0], p3[1]] == 1:
                     f[p3[0], p3[1]] = NBD
+                cnt.append(p3)
             if p4[0] == p[0] and p4[1] == p[1] and p3[0] == p1[0] and p3[1] == p1[1]:
                 break
             p2, p3 = p3, p4
-            cnt.append(p3)
+            # cnt.append(p2)
         return np.array(cnt)
 
     def _get_nonzero_pixel(self, start_point, work_point, f, clockwise: bool):

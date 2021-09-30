@@ -30,3 +30,10 @@ def plot_cnt(img, cnts, path_to_save=None):
     plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     plt.axis('off')
     plt.show()
+
+
+def plot(img):
+    plt.figure(figsize=(18, 10))
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    plt.axis('off')
+    plt.show()
