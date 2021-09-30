@@ -37,10 +37,10 @@ class FindContours:
             p4 = self._get_nonzero_pixel(p3, p2, f, clockwise=False)
             if p4 is None:
                 break
-            if p3[1] <= w - 2:
+            if p3[1] < w - 1:
                 if f[p3[0], p3[1] + 1] == 0:
                     f[p3[0], p3[1]] = -NBD
-                elif f[p3[0], p3[1] + 1] != 0 and f[p3[0], p3[1]] == 1:
+                elif f[p3[0], p3[1]] == 1:
                     f[p3[0], p3[1]] = NBD
             if p4[0] == p[0] and p4[1] == p[1] and p3[0] == p1[0] and p3[1] == p1[1]:
                 break
