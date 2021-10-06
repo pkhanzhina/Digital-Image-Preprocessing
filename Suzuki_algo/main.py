@@ -16,16 +16,14 @@ if __name__ == '__main__':
 
     img_mask = prepare_mask(img_bgr, cfg.hue_interval, cfg.saturation_interval, cfg.value_interval,
                             blur=cfg.blur)
+
     plot(img_mask*255)
 
-    cnts = cnt_detector(img_mask)
+    cnts, _ = cnt_detector(img_mask)
+
     plot_cnt_as_bbox(img_bgr.copy(), cnts,
                      draw_contours=True,
                      min_area=cfg.min_area, max_area=cfg.max_area,
                      path_to_save=f"data/{img_name.split('.')[0]}_bbox.jpg")
     plot_cnt(img_bgr.copy(), cnts,
              path_to_save=f"data/{img_name.split('.')[0]}_cnt.jpg")
-
-    cnts_cv2 = find_cnt_with_cv2(img_mask)
-    plot_cnt(img_bgr.copy(), cnts,
-             path_to_save=f"data/{img_name.split('.')[0]}_cnt_cv2.jpg")

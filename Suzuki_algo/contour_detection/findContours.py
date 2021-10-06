@@ -8,21 +8,42 @@ class FindContours:
         self.neighbors = NeighboringPoints()
 
     def __call__(self, mask):
+        """
+        :return:
+        cnt - список контуров
+        hierarchy - список родителя каждого контура (hierarchy[i] - номер родителя в списке cnt)
+        """
         h, w = mask.shape[:2]
         f = np.asarray(mask.copy(), dtype=np.int)
         NBD = 1
-        cnts = []
+        cnts, hierarchy = [], []
+        is_hole = []
         for i in range(h):
+            LNBD = 1
             for j in range(w):
                 if f[i, j] == 0:
                     continue
                 if j > 0 and f[i, j] == 1 and f[i, j - 1] == 0:
                     NBD += 1
+                    is_hole.append(False)
+                    if LNBD == 1:
+                        hierarchy.append((-1, NBD))
+                    else:
+                        hierarchy.append((LNBD - 2, NBD) if is_hole[LNBD - 2] else (hierarchy[LNBD - 2][0], NBD))
                     cnts.append(self._border_detection(f, np.asarray([i, j]), np.asarray([0, -1]), NBD)[:, ::-1])
-                if j < w - 1 and f[i, j] >= 1 and f[i, j + 1] == 0:
+                elif j < w - 1 and f[i, j] >= 1 and f[i, j + 1] == 0:
                     NBD += 1
+                    if f[i, j] > 1:
+                        LNBD = f[i, j]
+                    is_hole.append(True)
+                    if LNBD == 1:
+                        hierarchy.append((-1, NBD))
+                    else:
+                        hierarchy.append((hierarchy[LNBD - 2][0], NBD) if is_hole[LNBD - 2] else (LNBD - 2, NBD))
                     cnts.append(self._border_detection(f, np.asarray([i, j]), np.asarray([0, 1]), NBD)[:, ::-1])
-        return cnts
+                if f[i, j] != 1:
+                    LNBD = abs(f[i, j])
+        return cnts, hierarchy
 
     def _border_detection(self, f, p, delta, NBD):
         w = f.shape[1]
