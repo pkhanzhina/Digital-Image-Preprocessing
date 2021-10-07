@@ -10,8 +10,9 @@ class FindContours:
     def __call__(self, mask):
         """
         :return:
-        cnt - список контуров
-        hierarchy - список родителя каждого контура (hierarchy[i] - номер родителя в списке cnt)
+            cnt - список контуров
+            hierarchy - список родителя каждого контура: hierarchy[i] - номер родителя в списке cnt
+                ("-1" - в качестве родителя берется frame)
         """
         h, w = mask.shape[:2]
         f = np.asarray(mask.copy(), dtype=np.int)

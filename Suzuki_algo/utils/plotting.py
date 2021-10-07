@@ -9,9 +9,9 @@ def plot_cnt_as_bbox(img, cnts, draw_contours=False, min_area=None, max_area=Non
                 max_area is not None and area > max_area:
             continue
         x, y, w, h = cv2.boundingRect(cnt)
-        img = cv2.rectangle(img, (x, y), (x + w, y + h), color=(0, 0, 255), thickness=1)
+        img = cv2.rectangle(img, (x, y), (x + w, y + h), color=(0, 0, 255), thickness=2)
         if draw_contours:
-            img = cv2.drawContours(img, [cnt], -1, color=(0, 0, 255), thickness=1)
+            img = cv2.drawContours(img, [cnt], -1, color=(0, 0, 255), thickness=2)
     if path_to_save is not None:
         cv2.imwrite(path_to_save, img)
 
@@ -22,7 +22,7 @@ def plot_cnt_as_bbox(img, cnts, draw_contours=False, min_area=None, max_area=Non
 
 
 def plot_cnt(img, cnts, path_to_save=None):
-    img_cnt = cv2.drawContours(img, cnts, -1, color=(0, 0, 255), thickness=1)
+    img_cnt = cv2.drawContours(img, cnts, -1, color=(0, 0, 255), thickness=2)
     if path_to_save is not None:
         cv2.imwrite(path_to_save, img_cnt)
 

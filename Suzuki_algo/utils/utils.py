@@ -6,8 +6,7 @@ def prepare_mask(img, hue_interval, saturation_interval, value_interval, blur=Fa
     lower_bnd = np.asarray([hue_interval[0], saturation_interval[0], value_interval[0]])
     upper_bnd = np.asarray([hue_interval[1], saturation_interval[1], value_interval[1]])
     if blur:
-        # img = cv2.medianBlur(img, 5)
-        img = cv2.GaussianBlur(img, (23, 23), 160)
+        img = cv2.medianBlur(img, 5)
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(img_hsv, lower_bnd, upper_bnd) // 255
     return mask
