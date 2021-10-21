@@ -10,7 +10,6 @@ def count_notna_cdfs(cdfs):
 
 
 def processing_zone(img, control_points, cdfs):
-    h, w = img.shape[:2]
     new_img = np.zeros_like(img)
     x1, y1 = 0, 0
     x2, y2 = control_points
@@ -18,8 +17,8 @@ def processing_zone(img, control_points, cdfs):
 
     zone_type = count_notna_cdfs(cdfs)
 
-    for i in range(0, h):
-        for j in range(0, w):
+    for i in range(x1, x2):
+        for j in range(y1, y2):
             if zone_type == 3:
                 if cdf_a is not None:
                     cdf = cdf_a
