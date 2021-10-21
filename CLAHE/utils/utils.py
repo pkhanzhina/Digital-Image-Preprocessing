@@ -33,24 +33,24 @@ def processing_zone(img, control_points, cdfs):
                 new_img[i, j] = cdf[curr_value]
             elif zone_type == 2:
                 if cdf_a is not None and cdf_b is not None:
-                    n = 0 if y2 - y1 == 0 else (y2 - j) / (y2 - y1)
+                    n = (y2 - j) / (y2 - y1)
                     cdf = n * cdf_a + (1 - n) * cdf_b
                 elif cdf_b is not None and cdf_c is not None:
-                    m = 0 if x2 - x1 == 0 else (x2 - i) / (x2 - x1)
+                    m = (x2 - i) / (x2 - x1)
                     cdf = m * cdf_b + (1 - m) * cdf_c
                 elif cdf_c is not None and cdf_d is not None:
-                    n = 0 if y2 - y1 == 0 else (y2 - j) / (y2 - y1)
+                    n = (y2 - j) / (y2 - y1)
                     cdf = n * cdf_d + (1 - n) * cdf_c
                 elif cdf_a is not None and cdf_d is not None:
-                    m = 0 if x2 - x1 == 0 else (x2 - i) / (x2 - x1)
+                    m = (x2 - i) / (x2 - x1)
                     cdf = m * cdf_a + (1 - m) * cdf_d
                 else:
                     continue
                 curr_value = img[i, j]
                 new_img[i, j] = cdf[curr_value]
             else:
-                m = 0 if x2 - x1 == 0 else (x2 - i) / (x2 - x1)
-                n = 0 if y2 - y1 == 0 else (y2 - j) / (y2 - y1)
+                m = (x2 - i) / (x2 - x1)
+                n = (y2 - j) / (y2 - y1)
                 cdf = m * (n * cdf_a + (1 - n) * cdf_b) + (1 - m) * (n * cdf_d + (1 - n) * cdf_c)
                 curr_value = img[i, j]
                 new_img[i, j] = cdf[curr_value]

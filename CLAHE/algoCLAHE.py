@@ -13,8 +13,8 @@ class CLAHE:
         if len(img.shape) > 2:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         h, w = img.shape[:2]
-        grid_h = np.linspace(0, h, self.nrof_rows, dtype=int)
-        grid_w = np.linspace(0, w, self.nrof_cols, dtype=int)
+        grid_h = np.linspace(0, h, self.nrof_rows + 1, dtype=int)
+        grid_w = np.linspace(0, w, self.nrof_cols + 1, dtype=int)
         control_coords_x = np.hstack(([grid_h[0]], (grid_h[:-1] + grid_h[1:]) // 2, [grid_h[-1]]))
         control_coords_y = np.hstack(([grid_w[0]], (grid_w[:-1] + grid_w[1:]) // 2, [grid_w[-1]]))
 
@@ -22,10 +22,10 @@ class CLAHE:
         bins = np.arange(0, 257)
         for i in range(0, len(control_coords_x)):
             for j in range(0, len(control_coords_y)):
-                if i - 1 >= 0 and i < self.nrof_rows and j - 1 >= 0 and j < self.nrof_cols:
+                if i - 1 >= 0 and i <= self.nrof_rows and j - 1 >= 0 and j <= self.nrof_cols:
                     xt, yt = grid_h[i - 1], grid_w[j - 1]
                     xb, yb = grid_h[i], grid_w[j]
-                    counts, bins = np.histogram(img[xt:xb, yt:yb].flatten(), bins=bins)
+                    counts, _ = np.histogram(img[xt:xb, yt:yb].flatten(), bins=bins)
                     if self.clipping_limit:
                         counts = self.clipping_hist(counts)
                     counts = counts / np.sum(counts)
