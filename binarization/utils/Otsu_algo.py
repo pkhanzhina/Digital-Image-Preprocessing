@@ -6,9 +6,9 @@ def otsu(img):
     counts, bins = image_histogram(img, 256)
     counts = counts / (img.shape[0] * img.shape[1])
     mean = np.cumsum(counts * bins)
-    func = [0]
+    func = []
     nb, no = 0, 1
-    for T in range(1, 256):
+    for T in range(0, 256):
         nb += counts[T - 1]
         no = 1 - nb
         if nb == 0:
