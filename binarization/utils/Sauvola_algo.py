@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 from binarization.utils.utils import integral_image
 
-R = 128
 
-
-def saulova(img, k=0.2, win=31):
-    img = np.int64(img)
+def sauvola_binarization(img, k=0.5, win=15, R=None):
+    if R is None:
+        R = (np.max(img) + 1) // 2
+    img = np.asarray(img, dtype=np.int64)
 
     I = integral_image(img)
     I_sq = integral_image(img ** 2)
@@ -30,7 +30,6 @@ def saulova(img, k=0.2, win=31):
             # n = win * win
             mean = S1 / n
             std = (S2 - S1 * S1 / n) / n
-            _std = np.var(img[x1:x2, y1:y2])
 
             t = mean * (1 + k * (std ** 0.5 / R - 1))
             thresholds[x, y] = t

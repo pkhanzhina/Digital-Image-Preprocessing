@@ -2,7 +2,7 @@ import numpy as np
 from binarization.utils.utils import image_histogram
 
 
-def otsu(img):
+def otsu_binarization(img):
     counts, bins = image_histogram(img, 256)
     counts = counts / (img.shape[0] * img.shape[1])
     mean = np.cumsum(counts * bins)
@@ -24,4 +24,5 @@ def otsu(img):
         func.append(no * nb * (mu_b - mu_o) ** 2)
 
     best_T = bins[np.argmax(func)]
+    # print(f'Otsu threshold: {best_T}')
     return (img >= best_T) * 255
