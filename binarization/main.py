@@ -12,7 +12,7 @@ if __name__ == '__main__':
     img = cv2.imread(os.path.join(data_path, img_name))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    sauvola_bin_img = sauvola_binarization(img)
+    sauvola_bin_img = sauvola_binarization(img, k=0.5, win=15, R=128)
     cv2.imwrite(f"data/{img_name.split('.')[0]}_sauvola.png", sauvola_bin_img)
 
     otsu_bin_img = otsu_binarization(img)

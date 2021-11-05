@@ -3,7 +3,7 @@ import numpy as np
 from binarization.utils.utils import integral_image
 
 
-def sauvola_binarization(img, k=0.5, win=15, R=None):
+def sauvola_binarization(img, k=0.2, win=31, R=None):
     if R is None:
         R = (np.max(img) + 1) // 2
     img = np.asarray(img, dtype=np.int64)
