@@ -12,7 +12,7 @@ def get_df(img):
 
 
 def first_BAG(d, ax, AC=33):
-    kernel = np.ones(AC).reshape((-1, 1)) if ax == 1 else np.ones(AC).reshape((1, -1))
+    kernel = np.ones((AC, 1)) if ax == 1 else np.ones((1, AC))
     es = cv2.filter2D(d, -1, kernel)
     mid = median_filter(es, kernel.shape[::-1])
     return es - mid
