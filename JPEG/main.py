@@ -62,10 +62,10 @@ if __name__ == '__main__':
     dx, dy = get_df(img)
 
     eh = first_BAG(dx, ax=0)
-    gh = second_BAG(dx, ax=0)
+    gh = second_BAG(eh, ax=0)
 
     ev = first_BAG(dy, ax=1)
-    gv = second_BAG(dy, ax=1)
+    gv = second_BAG(ev, ax=1)
 
     g = gh + gv
     b = anomaly_score(g)
