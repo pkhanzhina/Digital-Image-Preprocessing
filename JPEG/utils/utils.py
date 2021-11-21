@@ -17,7 +17,7 @@ def sobel_filtering(img, theta=np.pi / 18, min_E=30):
 
 
 def get_df(img):
-    kernel = np.array([[-1, 2, -1]])
-    dx = cv2.filter2D(img, -1, kernel)
-    dy = cv2.filter2D(img, -1, kernel.T)
+    kernel = np.array([-1, 2, -1])
+    dx = cv2.filter2D(img, -1, kernel.reshape((1, -1)))
+    dy = cv2.filter2D(img, -1, kernel.reshape((-1, 1)))
     return np.abs(dx), np.abs(dy)
