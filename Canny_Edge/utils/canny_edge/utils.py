@@ -8,8 +8,7 @@ def direction_round(dir, nrof_dir):
     rounded_dir = np.zeros_like(dir)
     for i in range(nrof_dir):
         b, t = angles[i] - shift, angles[i] + shift
-        angle = angles[i] if angles[i] != 1 else -1
-        rounded_dir[(b <= dir) & (dir < t)] = angle
+        rounded_dir[(b <= dir) & (dir < t)] = angles[i]
     return rounded_dir
 
 

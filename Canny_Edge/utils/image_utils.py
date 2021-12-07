@@ -18,3 +18,7 @@ def load_image(path_to_img):
 
 def gaussian_smoothing(img, kernel_size, sigma):
     return cv2.GaussianBlur(img, kernel_size, sigma)
+
+
+def save_image(img, path_to_save):
+    cv2.imwrite(path_to_save, np.uint8(img))
