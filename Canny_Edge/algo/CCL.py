@@ -14,8 +14,8 @@ class CCL:
     def __call__(self, img):
         disjoint_set = DisjointSet()
         labels = self.first_pass(img, disjoint_set)
-        final_labels = self.second_pass(labels, disjoint_set)
-        return final_labels
+        updated_labels = self.second_pass(labels, disjoint_set)
+        return updated_labels
 
     def first_pass(self, img, disjoint_set):
         img = np.pad(img, ((1, 1), (1, 1)), constant_values=[0, 0])

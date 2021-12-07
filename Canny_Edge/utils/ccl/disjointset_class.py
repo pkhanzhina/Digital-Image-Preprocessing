@@ -13,11 +13,15 @@ class DisjointSet:
         return exist_node
 
     def Find(self, value):
-        # todo: Path Compression
-        cur_node = self.nodes.get(value)
-        while cur_node.parent != cur_node:
-            cur_node = cur_node.parent
-        return cur_node
+        x = self.nodes.get(value)
+        root = x
+        while root.parent != root:
+            root = root.parent
+        while x.parent != root:
+            parent = x.parent
+            x.parent = root
+            x = parent
+        return root
 
     def Union(self, value_r, value_s):
         if value_r == value_s:
