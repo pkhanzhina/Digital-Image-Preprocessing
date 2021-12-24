@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from Fourier.utils.plotting import plot
 
 
 def DFT(f):
@@ -25,11 +26,12 @@ def DFT(f):
 def find_initial_orientation(img, r=50, th=0.95):
     f = DFT(img)
     xc, yc = f.shape[0] // 2, f.shape[1] // 2
-    mask = cv2.circle(np.zeros_like(f), (yc, xc), r, color=(1, 1, 1), thickness=-1)
-    f[mask == 1] = 0
+    f = cv2.circle(f, (yc, xc), r, color=0, thickness=-1)
     th = th * np.max(f)
     f[f < th] = 0
+    # plot(f)
     line = cv2.HoughLines(f, 1, np.pi / 180, 1)[0].flatten()
-    return np.rad2deg(line[1])
+    theta = np.rad2deg(line[1])
+    return 180 - theta
 
 
